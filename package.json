@@ -1,0 +1,16 @@
+{
+  "name": "blog-seo",
+  "description": "SEO handler for my personal blog",
+  "main": "index.ts",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoseung-only/blog-seo.git"
+  },
+  "author": "Alvin Jang <hsjang.dev@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/hoseung-only/blog-seo/issues"
+  },
+  "homepage": "https://github.com/hoseung-only/blog-seo#readme"
+}
