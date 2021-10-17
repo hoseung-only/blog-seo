@@ -1,0 +1,18 @@
+service: blog-seo
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-2
+  environment: ${file(./env.yml)}
+  stage: prod
+  apiGateway:
+    shouldStartNameWithService: true
+  lambdaHashingVersion: 20201221
+
+plugins:
+  - serverless-plugin-typescript
+
+functions:
+  api:
+    handler: src/index.handler
