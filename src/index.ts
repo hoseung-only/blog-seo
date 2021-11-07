@@ -31,7 +31,7 @@ export async function handler(
   }
 
   const client = new Client({
-    baseURL: process.env.API_BASE_URL,
+    baseURL: "https://y7wgfma059.execute-api.ap-northeast-2.amazonaws.com/prod",
   });
 
   const requestURL = `https://blog.hoseung.me${request.uri}`;
