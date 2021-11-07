@@ -3,7 +3,7 @@ service: blog-seo
 provider:
   name: aws
   runtime: nodejs12.x
-  region: ap-northeast-2
+  region: us-east-1
   environment: ${file(./env.yml)}
   stage: prod
   apiGateway:
