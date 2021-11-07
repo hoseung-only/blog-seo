@@ -3,7 +3,9 @@
   "description": "SEO handler for my personal blog",
   "main": "index.ts",
   "scripts": {
-    "format": "prettier --write 'src/**/*.ts'"
+    "format": "prettier --write 'src/**/*.ts'",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove"
   },
   "repository": {
     "type": "git",
