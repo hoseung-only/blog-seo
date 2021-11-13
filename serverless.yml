@@ -14,7 +14,7 @@ plugins:
 
 functions:
   api:
-    handler: src/index.handler
+    handler: src/origin-request/index.handler
     memorySize: 128
     timeout: 30
     role: lambdaRole
