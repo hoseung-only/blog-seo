@@ -1,8 +1,4 @@
-import {
-  CloudFrontRequest,
-  CloudFrontRequestEvent,
-  CloudFrontResultResponse,
-} from "aws-lambda";
+import { CloudFrontRequest, CloudFrontRequestEvent, CloudFrontResultResponse } from "aws-lambda";
 
 import { Client } from "@hoseung-only/blog-api-client";
 
@@ -13,20 +9,13 @@ const Regex = {
   UUID: /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/,
 };
 
-const defaultOgImage =
-  "https://blog-media.hoseung.me/blog-og-main-profile-image.png";
+const defaultOgImage = "https://blog-media.hoseung.me/blog-og-main-profile-image.png";
 
-export async function handler(
-  event: CloudFrontRequestEvent
-): Promise<CloudFrontRequest | CloudFrontResultResponse> {
+export async function handler(event: CloudFrontRequestEvent): Promise<CloudFrontRequest | CloudFrontResultResponse> {
   const request = event.Records[0].cf.request;
   const headers = new Headers(request.headers);
 
-  if (
-    !headers
-      .get("X-Viewer-User-Agent")
-      ?.match(/facebookexternalhit|twitterbot|slackbot/g)
-  ) {
+  if (!headers.get("X-Viewer-User-Agent")?.match(/facebookexternalhit|twitterbot|slackbot/g)) {
     return request;
   }
 
@@ -45,9 +34,7 @@ export async function handler(
     });
   }
 
-  const categoryShowMatch = request.uri.match(
-    new RegExp(`^\/categories\/(${Regex.UUID.source})\/posts\/?$`)
-  );
+  const categoryShowMatch = request.uri.match(new RegExp(`^\/categories\/(${Regex.UUID.source})\/posts\/?$`));
   if (categoryShowMatch) {
     const categoryId = categoryShowMatch[1];
     const category = await client.getCategory({ id: categoryId });
@@ -60,9 +47,7 @@ export async function handler(
     });
   }
 
-  const postShowMatch = request.uri.match(
-    new RegExp(`^\/posts\/(${Regex.UUID.source})\/?$`)
-  );
+  const postShowMatch = request.uri.match(new RegExp(`^\/posts\/(${Regex.UUID.source})\/?$`));
   if (postShowMatch) {
     const postId = postShowMatch[1];
     const post = await client.getPost({ id: postId });
