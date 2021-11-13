@@ -6,8 +6,11 @@ export async function handler(event: CloudFrontRequestEvent): Promise<CloudFront
   const request = event.Records[0].cf.request;
   const headers = new Headers(request.headers);
 
-  const headerName = "X-Viewer-User-Agent";
-  request.headers[headerName.toLowerCase()] = [{ key: headerName, value: headers.get("User-Agent") }];
+  const userAgent = headers.get("User-Agent");
+  if (userAgent) {
+    const headerName = "X-Viewer-User-Agent";
+    request.headers[headerName.toLowerCase()] = [{ key: headerName, value: userAgent }];
+  }
 
   return request;
 }
