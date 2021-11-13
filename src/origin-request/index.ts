@@ -15,7 +15,7 @@ export async function handler(event: CloudFrontRequestEvent): Promise<CloudFront
   const request = event.Records[0].cf.request;
   const headers = new Headers(request.headers);
 
-  if (!headers.get("X-Viewer-User-Agent")?.match(/facebookexternalhit|twitterbot|slackbot/g)) {
+  if (!headers.get("x-viewer-user-agent")?.match(/facebookexternalhit|twitterbot|slackbot/g)) {
     return request;
   }
 
