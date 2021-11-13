@@ -13,10 +13,15 @@ plugins:
   - serverless-plugin-typescript
 
 functions:
-  api:
+  origin-request:
     handler: src/origin-request/index.handler
     memorySize: 128
     timeout: 30
+    role: lambdaRole
+  viewer-request:
+    handler: src/viewer-request/index.handler
+    memorySize: 128
+    timeout: 5
     role: lambdaRole
 
 resources:

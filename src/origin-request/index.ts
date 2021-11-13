@@ -6,7 +6,7 @@ import {
 
 import { Client } from "@hoseung-only/blog-api-client";
 
-import { Headers } from "./Headers";
+import { Headers } from "../helpers/Headers";
 import { Response } from "./Response";
 
 const Regex = {
@@ -24,7 +24,7 @@ export async function handler(
 
   if (
     !headers
-      .get("User-Agent")
+      .get("X-Viewer-User-Agent")
       ?.match(/facebookexternalhit|twitterbot|slackbot/g)
   ) {
     return request;
