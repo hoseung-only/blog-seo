@@ -15,3 +15,41 @@ plugins:
 functions:
   api:
     handler: src/index.handler
+    memorySize: 128
+    timeout: 30
+    role: lambdaRole
+
+resources:
+  Resources:
+    lambdaRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: blog-seo-lambda-policy
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - "lambda.amazonaws.com"
+                  - "edgelambda.amazonaws.com"
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: blog-seo-lambda-policy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: "Allow"
+                  Action:
+                    - "lambda:GetFunction"
+                    - "lambda:EnableReplication*"
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - "iam:CreateServiceLinkedRole"
+                  Resource: "*"
+                - Effect: "Allow"
+                  Action:
+                    - "cloudfront:CreateDistribution"
+                    - "cloudfront:UpdateDistribution"
+                  Resource: "*"
