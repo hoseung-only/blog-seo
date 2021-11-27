@@ -1,16 +1,14 @@
-import { CloudFrontRequest, CloudFrontRequestEvent } from "aws-lambda";
+import { CloudFrontRequest, CloudFrontRequestEvent, CloudFrontResultResponse } from "aws-lambda";
 
 import { Headers } from "../helpers/Headers";
 
-export async function handler(event: CloudFrontRequestEvent): Promise<CloudFrontRequest> {
+export async function handler(event: CloudFrontRequestEvent): Promise<CloudFrontRequest | CloudFrontResultResponse> {
   const request = event.Records[0].cf.request;
   const headers = new Headers(request.headers);
 
-  const userAgent = headers.get("user-agent");
-  if (userAgent) {
-    const headerName = "X-Viewer-User-Agent";
-    request.headers[headerName.toLowerCase()] = [{ key: headerName, value: userAgent }];
-  }
+  const type = !!headers.get("user-agent")?.match(/facebookexternalhit|twitterbot|slackbot/g) ? "bot" : "user";
+  const headerName = "X-Viewer-Type";
+  request.headers[headerName.toLowerCase()] = [{ key: headerName, value: type }];
 
   return request;
 }
