@@ -61,6 +61,27 @@ export async function handler(event: CloudFrontRequestEvent): Promise<CloudFront
     });
   }
 
+  if (request.uri === "/search") {
+    return Response.render({
+      title: "장호승 개발 블로그 - 검색",
+      description: "보고싶은 글을 검색하세요",
+      image: defaultOgImage,
+      url: requestURL,
+    });
+  }
+
+  const searchPostsMatch = request.uri.match(new RegExp(`^\/search\/([\S]+)\/?$`));
+  if (searchPostsMatch) {
+    const query = decodeURIComponent(searchPostsMatch[1]);
+
+    return Response.render({
+      title: `${query} 검색 결과`,
+      description: "",
+      image: defaultOgImage,
+      url: requestURL,
+    });
+  }
+
   // default
   return Response.render({
     title: "장호승 개발 블로그",
